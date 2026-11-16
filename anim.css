@@ -1,0 +1,46 @@
+/* =========================================================
+   움직임(애니메이션) 모음 — 두 버전 모두 사용
+   - 이번 달 내실 금액 숫자: 올라가는 동안 반짝이며 커졌다 돌아와요 (숫자 올라가기는 app.js의 roll)
+   - 맨 아래 마케팅지니 로고: 둥실둥실 + 금빛 빛 + 반짝 지나가기
+   - '움직임 줄이기'를 켠 기기에서는 style.css 맨 아래 규칙이 모두 멈춰 줘요.
+   ========================================================= */
+
+/* ---------- 이번 달 내실 금액 ---------- */
+.amount.bump { animation: bump-big .5s var(--ease), amount-glow 1.4s ease-out; }
+@keyframes bump-big { 0% { transform: scale(.94); } 35% { transform: scale(1.1); } 70% { transform: scale(.99); } 100% { transform: scale(1); } }
+@keyframes amount-glow {
+  0%   { color: var(--orange, #ff8a3d); text-shadow: 0 0 0 rgba(255, 138, 61, 0); }
+  35%  { color: var(--orange, #ff8a3d); text-shadow: 0 0 22px rgba(255, 138, 61, .65); }
+  100% { text-shadow: 0 0 0 rgba(255, 138, 61, 0); }
+}
+/* 숫자 박스 가장자리에 빛이 한 번 퍼져요 */
+.amount-wrap:has(.amount.bump) { animation: wrap-ring 1.2s ease-out; }
+@keyframes wrap-ring {
+  0%   { box-shadow: 0 6px 0 rgba(0, 0, 0, .28), 0 0 0 0 rgba(255, 138, 61, .75); }
+  100% { box-shadow: 0 6px 0 rgba(0, 0, 0, .28), 0 0 0 22px rgba(255, 138, 61, 0); }
+}
+
+/* ---------- 맨 아래 마케팅지니 로고 ---------- */
+.foot-brand { position: relative; }
+.foot-logo {
+  position: relative; display: block; border-radius: 50%;
+  animation: logo-float 3.6s ease-in-out infinite, logo-glow 3.6s ease-in-out infinite;
+}
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25%      { transform: translateY(-7px) rotate(-4deg); }
+  50%      { transform: translateY(-11px) rotate(0); }
+  75%      { transform: translateY(-5px) rotate(4deg); }
+}
+@keyframes logo-glow {
+  0%, 100% { box-shadow: 0 0 0 3px #fff, 0 0 0 0 rgba(250, 204, 21, 0); }
+  50%      { box-shadow: 0 0 0 3px #fff, 0 0 26px 8px rgba(250, 204, 21, .6); }
+}
+/* 로고 위로 반짝이는 빛줄기가 가끔 지나가요 */
+.foot-brand::before {
+  content: ""; position: absolute; top: 22px; left: calc(50% - 36px); width: 72px; height: 72px; border-radius: 50%; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .85) 50%, transparent 65%) -90px 0 / 200% 100% no-repeat;
+  animation: logo-shine 4.8s ease-in-out infinite;
+}
+@keyframes logo-shine { 0%, 55% { background-position: 160% 0; opacity: 0; } 60% { opacity: 1; } 85%, 100% { background-position: -60% 0; opacity: 0; } }
+.foot-logo:hover { animation-duration: 1.4s, 1.4s; }

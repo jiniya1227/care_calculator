@@ -1,0 +1,39 @@
+/* =========================================================
+   아래 네비게이션 바 (홈 · 비용계산 · 내정보)
+   - style.css 다음에 불러와서 덧입혀요.
+   - 지금 보는 칸은 진한 파랑 알약 + 흰 글씨, 나머지는 진한 남색 글씨라서 한눈에 구분돼요.
+   ========================================================= */
+:root { --nav-h: 78px; }
+
+.bnav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; gap: 8px;
+  background: #fff; border-top: 3px solid var(--brand-deep, #1d4ed8);
+  padding: 7px 10px calc(7px + env(safe-area-inset-bottom));
+  box-shadow: 0 -10px 28px rgba(18, 32, 58, .22);
+}
+.bnav a {
+  position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  min-height: 62px; border-radius: 16px; border: 2px solid transparent;
+  color: #2b3a57; text-decoration: none; font: 700 16px/1.2 var(--sans);
+  transition: color .2s, background .2s, box-shadow .2s, transform .15s;
+}
+.bnav a .ic { width: 30px; height: 30px; stroke-width: 2.2; transition: transform .3s var(--ease); }
+.bnav a:hover { background: var(--brand-soft, #e3edff); }
+.bnav a:active { transform: scale(.96); background: var(--brand-soft, #e3edff); }
+
+/* 지금 보는 칸 */
+.bnav a.on {
+  background: var(--brand-deep, #1d4ed8); border-color: #0a1c4d; color: #fff;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, .45), inset 0 -3px 0 rgba(0, 0, 0, .18);
+}
+.bnav a.on .ic { transform: translateY(-1px) scale(1.08); }
+.bnav a.on::before { display: none; }
+.bnav a:focus-visible { outline: 3px solid var(--orange, #ff8a3d); outline-offset: 2px; }
+
+/* 강아지 버전의 발바닥 표시는 dog.css 에 있어요 */
+
+@media (max-width: 340px) {
+  .bnav { gap: 4px; padding-left: 6px; padding-right: 6px; }
+  .bnav a { font-size: 15px; }
+}
+@media print { .bnav { display: none !important; } }

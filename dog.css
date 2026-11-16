@@ -1,0 +1,92 @@
+/* =========================================================
+   강아지 버전 (index2.html) — style.css 위에 덧입히는 스타일
+   캐릭터 '보리': 말풍선, 발바닥 무늬, 살짝 움직이는 애니메이션
+   (색은 기본 계산기와 같은 스카이블루 + 오렌지)
+   ========================================================= */
+.dogver {
+  --paw: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='5' cy='11' rx='2.2' ry='3'/%3E%3Cellipse cx='9.5' cy='6' rx='2.2' ry='3'/%3E%3Cellipse cx='15' cy='6' rx='2.2' ry='3'/%3E%3Cellipse cx='19.5' cy='11' rx='2.2' ry='3'/%3E%3Cpath d='M12 12c-4 0-7 3.5-6 6.5 1 2.5 3.5 2 6 2s5 .5 6-2c1-3-2-6.5-6-6.5z'/%3E%3C/svg%3E");
+}
+
+/* ---------- 캐릭터와 말풍선 ---------- */
+.dog {
+  width: 92px; height: 96px; flex: none; overflow: visible;
+  transform-origin: 50% 92%;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .2));
+  animation: dog-bob 5.2s ease-in-out infinite;
+}
+@keyframes dog-bob {
+  0%, 100% { transform: translateY(0) rotate(0) scale(1, 1); }
+  30%  { transform: translateY(-4px) rotate(-2.5deg) scale(1, 1); }
+  60%  { transform: translateY(0) rotate(1.5deg) scale(1, 1); }
+  /* 가끔 콩! 하고 뛰어요 */
+  76%  { transform: translateY(0) rotate(0) scale(1.07, .9); }
+  84%  { transform: translateY(-16px) rotate(-4deg) scale(.95, 1.06); }
+  92%  { transform: translateY(0) rotate(0) scale(1.06, .92); }
+  96%  { transform: translateY(-3px) rotate(0) scale(1, 1); }
+}
+.dog.tilt { animation: dog-tilt .7s ease; }
+@keyframes dog-tilt { 0% { transform: rotate(0); } 30% { transform: rotate(-10deg) translateY(-3px); } 62% { transform: rotate(8deg); } 100% { transform: rotate(0); } }
+
+.dog-say { display: flex; align-items: center; gap: 14px; margin: 16px 0 8px; }
+.bubble {
+  position: relative; flex: 1; min-width: 0; margin: 0; padding: 12px 15px;
+  background: #fff; color: var(--ink); border-radius: 18px;
+  font-size: 17px; line-height: 1.55; font-weight: 500;
+  box-shadow: 0 8px 18px rgba(6, 14, 40, .22);
+}
+.bubble::before {
+  content: ""; position: absolute; left: -10px; top: 26px;
+  border: 10px solid transparent; border-left: 0; border-right-color: #fff;
+}
+.bubble.pop { animation: bubble-pop .5s var(--ease); }
+@keyframes bubble-pop { from { transform: scale(.9); opacity: .3; } to { transform: none; opacity: 1; } }
+.bubble b { font-weight: 700; }
+
+/* 비용계산·내정보 위 제목 띠 안의 작은 보리 */
+.vbar .dog-say { margin: 14px 0 0; }
+.vbar .dog { width: 66px; height: 69px; }
+.vbar .bubble { font-size: 16px; padding: 10px 13px; color: var(--ink); line-height: 1.55; }
+
+/* 질문 하나씩 화면의 보리 */
+.wz-dog { display: flex; align-items: center; gap: 12px; margin: 12px 0 0; }
+.wz-dog .dog { width: 56px; height: 58px; filter: none; }
+.wz-dog .bubble { font-size: 16px; padding: 9px 13px; background: var(--brand-soft); box-shadow: none; }
+.wz-dog .bubble::before { border-right-color: var(--brand-soft); top: 18px; }
+
+/* ---------- 발바닥 무늬 ---------- */
+.dogver .sec h2::before {
+  width: 28px; height: 28px; border-radius: 0; background: var(--mk);
+  -webkit-mask: var(--paw) center / contain no-repeat; mask: var(--paw) center / contain no-repeat;
+}
+.dogver .foot-list li::before {
+  top: .5em; width: 15px; height: 15px; border-radius: 0; background: var(--apricot);
+  -webkit-mask: var(--paw) center / contain no-repeat; mask: var(--paw) center / contain no-repeat;
+}
+.dogver .bnav a.on::before {
+  display: block; top: 5px; right: 8px; left: auto; width: 15px; height: 15px; border-radius: 0;
+  background: var(--gold, #facc15);
+  -webkit-mask: var(--paw) center / contain no-repeat; mask: var(--paw) center / contain no-repeat;
+  animation: paw-hop .5s var(--ease) both;
+}
+.dogver .bnav a.on .ic { transform: translateY(-1px) scale(1.08); }
+@keyframes paw-hop { 0% { transform: translateY(8px) scale(.4); opacity: 0; } 60% { transform: translateY(-3px) scale(1.2); opacity: 1; } 100% { transform: none; } }
+
+/* 홈 맨 위 이름 옆에 작은 발바닥 */
+.dogver .brand-ko::after { content: ""; display: inline-block; width: 16px; height: 16px; margin-left: 6px; vertical-align: -1px; background: currentColor; -webkit-mask: var(--paw) center / contain no-repeat; mask: var(--paw) center / contain no-repeat; }
+
+/* ---------- 눈 깜빡 · 귀 팔랑 · 혀 날름 (강아지 그림 안쪽 조각) ---------- */
+.eye { transform-box: fill-box; transform-origin: 50% 50%; animation: dog-blink 4.2s infinite; }
+@keyframes dog-blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.08); } }
+.ear { animation: ear-flap 2.6s ease-in-out infinite; }
+.ear-l { transform-origin: 22px 36px; }
+.ear-r { transform-origin: 98px 36px; animation-delay: .35s; }
+@keyframes ear-flap { 0%, 100% { transform: rotate(0); } 45% { transform: rotate(9deg); } 70% { transform: rotate(-6deg); } }
+.ear-r { animation-name: ear-flap-r; }
+@keyframes ear-flap-r { 0%, 100% { transform: rotate(0); } 45% { transform: rotate(-9deg); } 70% { transform: rotate(6deg); } }
+.tongue { transform-box: fill-box; transform-origin: 50% 0; animation: tongue 2.2s ease-in-out infinite; }
+@keyframes tongue { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.45); } }
+
+@media (max-width: 380px) {
+  .dog { width: 80px; height: 84px; }
+  .bubble { font-size: 16px; }
+}

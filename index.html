@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>부모님 장기요양 본인부담 계산기 · 강아지 버전</title>
+<meta name="description" content="등급과 이용 방법만 고르면 한 달에 내실 금액을 알려 드려요. 주야간보호·방문요양·요양원 비교까지. 2026년 국민건강보험공단 수가 기준 예상액.">
+<meta name="theme-color" content="#1D4ED8">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="장기요양 계산기">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- 카카오톡·문자 링크 미리보기. 공개 주소가 정해지면 아래 og:url / og:image 주소를 실제 주소로 바꾸세요. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="강아지 보리와 함께 계산하는 장기요양 본인부담">
+<meta property="og:description" content="등급만 고르면 한 달에 내실 금액이 바로 나와요. 주야간보호·방문요양·요양원 비교까지 (2026년 기준)">
+<meta property="og:url" content="https://jiniya1227.github.io/ltc-calculator/">
+<meta property="og:image" content="https://jiniya1227.github.io/ltc-calculator/og.png?v=20261117c">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="nav.css">
+<link rel="stylesheet" href="anim.css">
+<link rel="stylesheet" href="dog.css">
+</head>
+<body data-view="home" class="dogver">
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="dog-face" viewBox="0 0 120 124">
+      <g class="ear ear-l"><ellipse cx="20" cy="56" rx="12" ry="24" fill="#c9792f" transform="rotate(12 20 56)"/></g>
+      <g class="ear ear-r"><ellipse cx="100" cy="56" rx="12" ry="24" fill="#c9792f" transform="rotate(-12 100 56)"/></g>
+      <ellipse cx="60" cy="62" rx="40" ry="36" fill="#f7c97e"/>
+      <ellipse cx="60" cy="38" rx="9" ry="15" fill="#ffe8bd"/>
+      <ellipse cx="60" cy="76" rx="22" ry="17" fill="#fff4de"/>
+      <circle cx="36" cy="72" r="5" fill="#ffb3a7" opacity=".65"/><circle cx="84" cy="72" r="5" fill="#ffb3a7" opacity=".65"/>
+      <ellipse class="tongue" cx="60" cy="86" rx="5" ry="6" fill="#ff8fa3"/>
+      <g class="eye eye-l"><circle cx="44" cy="58" r="5.5" fill="#2b1b17"/><circle cx="46" cy="56" r="1.8" fill="#fff"/></g>
+      <g class="eye eye-r"><circle cx="76" cy="58" r="5.5" fill="#2b1b17"/><circle cx="78" cy="56" r="1.8" fill="#fff"/></g>
+      <ellipse cx="60" cy="68" rx="7" ry="5.5" fill="#2b1b17"/>
+      <path d="M60 73v5M49 78c4 4 9 4 11 0M60 78c2 4 7 4 11 0" fill="none" stroke="#2b1b17" stroke-width="2.2" stroke-linecap="round"/>
+      <rect x="32" y="97" width="56" height="10" rx="5" fill="#fff"/><circle cx="60" cy="108" r="6.5" fill="#ff8a3d"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-calc" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 9.5V21h14V9.5M12 12v5M9.5 14.5h5"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></symbol>
+    <symbol id="i-house" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 9.5V21h14V9.5M9.5 21v-6h5v6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></symbol>
+  </defs>
+</svg>
+<a class="skip" href="#top">본문 바로가기</a>
+<main id="top">
+
+<!-- ========== 홈 ========== -->
+<div class="view" id="view-home" data-view="home">
+<!-- 1. 머리말 -->
+<header class="rise i0">
+  <div class="mast-row">
+    <span class="brand-wrap"><img class="brand-logo" src="logo.png" alt="" width="48" height="48"><span class="brand"><span class="brand-ko">마케팅지니</span><span class="brand-en">MARKETING JINI</span></span></span>
+    <button type="button" class="icon-btn" id="musicBtn" aria-pressed="false" aria-label="배경음악 켜기" title="배경음악 켜기"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g class="note"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></g><path class="slash" pathLength="1" d="M3 3 21 21"/></svg></button>
+  </div>
+  <h1>부모님 장기요양<br>본인부담 계산기</h1>
+  <p class="lead">등급과 이용 방법을 고르면, 한 달에 내실 금액을 가계부처럼 풀어 드려요.</p>
+  <div class="dog-say"><svg class="dog" viewBox="0 0 120 124" role="img" aria-label="강아지 캐릭터 보리"><use href="#dog-face"/></svg><p class="bubble" data-dog="home">멍! 안녕하세요, 저는 보리예요. 부모님 한 달 돌봄비를 같이 계산해 봐요.</p></div>
+  <div class="install" id="installBox" hidden>
+    <button type="button" class="btn sm soft" id="installBtn" hidden><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>홈 화면에 앱으로 추가</button>
+    <p class="hint" id="installHint" hidden></p>
+  </div>
+</header>
+
+<!-- 2. 이번 달 합계 -->
+<section class="total rise i1" id="totalCard" aria-label="이번 달 합계">
+  <p class="total-label">이번 달 내실 금액 (예상)</p>
+  <div class="amount-wrap">
+    <svg class="scribble" id="scribble" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 30 70 C 14 28, 110 8, 190 12 C 282 16, 312 52, 294 86 C 276 114, 170 118, 90 110 C 28 104, 8 74, 38 46"/></svg>
+    <div class="amount" id="amountBox"><span id="totalNum">0</span><span class="won">원</span></div>
+  </div>
+  <span class="sr" id="srTotal" role="status" aria-live="polite"></span>
+  <p class="cond" id="condLine"></p>
+  <p class="avg" id="avgLine" hidden></p>
+  <p class="nocov" id="nocovLine" hidden><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg><span><b>공단 지원이 없는 식비·간식비는 센터마다 달라요.</b> 센터에 확인해서 비용계산 화면에서 고쳐 넣어 주세요.</span></p>
+  <div class="limit" id="limitBox">
+    <div class="lim-top"><span>월 한도액 사용</span><b id="limText"></b></div>
+    <div class="bar" aria-hidden="true"><i id="limBar"></i></div>
+    <p class="lim-note" id="limNote"></p>
+  </div>
+  <button type="button" class="btn primary" id="quickBtn"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>질문에 하나씩 답하며 계산하기</button>
+  <button type="button" class="btn ghost-light" data-go="calc">직접 입력해서 계산하기<svg class="ic" aria-hidden="true"><use href="#i-right"/></svg></button>
+  <a class="link" href="#ledger">계산 과정 보기<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></a>
+</section>
+
+<!-- 6-2. 자주 묻는 질문 (검색 + 분류) -->
+<section class="sec" id="qa" aria-labelledby="h-qa">
+  <h2 id="h-qa">자주 묻는 질문</h2>
+  <p class="cap">노인장기요양제도, 궁금한 것만 골라 보세요. 아래 단어를 누르거나 직접 입력하면 바로 찾아 줘요.</p>
+  <div class="qa-search">
+    <label class="sr" for="qaSearch">질문 검색</label>
+    <svg class="ic lead-ic" aria-hidden="true"><use href="#i-search"/></svg>
+    <input type="search" id="qaSearch" placeholder="예: 신청, 한도, 식비, 감경" autocomplete="off" enterkeyhint="search">
+    <button type="button" id="qaClear" aria-label="검색어 지우기" hidden><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="qa-quick" id="qaQuick" aria-label="자주 찾는 단어"></div>
+  <div class="qa-cats" id="qaCats" role="group" aria-label="질문 분류"></div>
+  <p class="qa-count" id="qaCount" role="status" aria-live="polite"></p>
+  <div class="qa-list" id="qaList"></div>
+  <div class="qa-empty" id="qaEmpty" hidden>
+    <p>찾는 질문이 없어요. 다른 단어로 찾아보시거나, 국민건강보험공단 1577-1000에 물어보세요.</p>
+    <button type="button" class="btn sm" id="qaReset">검색 지우고 전체 보기</button>
+  </div>
+  <p class="hint">설명은 쉽게 줄여 쓴 것이라, 내 경우에 꼭 맞는지는 국민건강보험공단(1577-1000) 또는 이용 기관에 확인해 주세요.</p>
+</section>
+
+<!-- 홈: 더 보기 -->
+<section class="sec" aria-label="더 보기">
+  <div class="actions">
+    <a class="btn soft" id="blogBtn" href="#" target="_blank" rel="noopener" hidden><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>블로그 글 보러 가기</a>
+    <a class="btn official" href="https://www.longtermcare.or.kr/npbs/indexr.jsp" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg>노인장기요양보험 공식 홈페이지</a>
+  </div>
+</section>
+</div>
+
+<!-- ========== 비용계산 ========== -->
+<div class="view" id="view-calc" data-view="calc">
+<header class="vbar">
+  <h1 class="vbar-t" tabindex="-1">비용 계산</h1>
+  <p>등급과 이용 방법을 고르면 아래에서 바로 계산돼요.</p>
+  <div class="dog-say"><svg class="dog" viewBox="0 0 120 124" role="img" aria-label="강아지 캐릭터 보리"><use href="#dog-face"/></svg><p class="bubble" data-dog="calc">등급과 요일, 이용 시간을 골라 주세요.</p></div>
+</header>
+
+<!-- 3. 어르신 정보 -->
+<section class="sec rise i2" aria-labelledby="h-info">
+  <h2 id="h-info">어르신 정보</h2>
+  <fieldset>
+    <legend>장기요양 등급</legend>
+    <div class="pick" id="gradePick">
+      <label class="chk" data-g="1"><input type="radio" name="grade" value="1" data-path="grade" data-t="s"><span class="bx"></span><span>1등급<span class="mark" hidden>◆</span></span></label>
+      <label class="chk" data-g="2"><input type="radio" name="grade" value="2" data-path="grade" data-t="s"><span class="bx"></span><span>2등급<span class="mark" hidden>◆</span></span></label>
+      <label class="chk" data-g="3"><input type="radio" name="grade" value="3" data-path="grade" data-t="s"><span class="bx"></span><span>3등급<span class="mark" hidden>◆</span></span></label>
+      <label class="chk" data-g="4"><input type="radio" name="grade" value="4" data-path="grade" data-t="s"><span class="bx"></span><span>4등급<span class="mark" hidden>◆</span></span></label>
+      <label class="chk" data-g="5"><input type="radio" name="grade" value="5" data-path="grade" data-t="s"><span class="bx"></span><span>5등급<span class="mark" hidden>◆</span></span></label>
+      <label class="chk" data-g="c"><input type="radio" name="grade" value="c" data-path="grade" data-t="s"><span class="bx"></span><span>인지지원등급<span class="mark" hidden>◆</span></span></label>
+    </div>
+    <p class="hint" id="gradeCap"></p>
+  </fieldset>
+  <fieldset>
+    <legend>본인부담 감경</legend>
+    <div class="pick">
+      <label class="chk"><input type="radio" name="reduce" value="general" data-path="reduce"><span class="bx"></span><span>일반</span></label>
+      <label class="chk"><input type="radio" name="reduce" value="r40" data-path="reduce"><span class="bx"></span><span>감경 40%</span></label>
+      <label class="chk"><input type="radio" name="reduce" value="r60" data-path="reduce"><span class="bx"></span><span>감경 60%</span></label>
+      <label class="chk"><input type="radio" name="reduce" value="free" data-path="reduce"><span class="bx"></span><span>의료급여 면제</span></label>
+    </div>
+    <p class="hint">잘 모르시면 '일반'을 고르세요. 감경 대상인지는 국민건강보험공단 1577-1000에서 알려 줘요.</p>
+  </fieldset>
+</section>
+
+<!-- 4. 돌봄 장소 (바인더 탭 + 캐러셀) -->
+<section class="sec rise i3" aria-labelledby="h-place">
+  <h2 id="h-place">어디에서 돌봄을 받으세요?</h2>
+  <p class="cap">집에서 이용하는 <b>재가급여</b>(주야간보호·방문요양)와, 시설에 입소하는 <b>시설급여</b>(요양원) 중에서 골라 주세요.</p>
+  <div class="binder">
+    <div class="tabs" role="tablist" aria-label="돌봄 장소">
+      <button type="button" class="tab t0" role="tab" id="tab0" aria-controls="pn0" aria-selected="true">주야간보호<small>재가급여</small></button>
+      <button type="button" class="tab t1" role="tab" id="tab1" aria-controls="pn1" aria-selected="false" tabindex="-1">방문요양<small>재가급여</small></button>
+      <button type="button" class="tab t2" role="tab" id="tab2" aria-controls="pn2" aria-selected="false" tabindex="-1">요양원<small>시설급여</small></button>
+    </div>
+    <div class="pages" id="pages">
+
+      <!-- 주야간보호 -->
+      <section class="pg cur" id="pn0" role="tabpanel" aria-labelledby="tab0"><div class="pg-in">
+        <div class="kind"><span class="kb re">재가급여</span><p><b>주야간보호</b> · 집에서 지내면서 낮 동안 센터에 다녀요. 돌봄·식사·프로그램을 받고 저녁에는 집으로 돌아와요. 월 한도액 안에서 이용해요.</p></div>
+        <fieldset>
+          <legend>다니는 요일</legend>
+          <div class="cal" data-days="day.days" role="group" aria-label="다니는 요일">
+            <button type="button" data-d="1">월</button><button type="button" data-d="2">화</button><button type="button" data-d="3">수</button><button type="button" data-d="4">목</button><button type="button" data-d="5">금</button><button type="button" class="sat" data-d="6">토</button><button type="button" class="sun" data-d="7">일</button>
+          </div>
+          <div class="presets">
+            <button type="button" data-preset="day.days:1,2,3,4,5">평일 매일</button>
+            <button type="button" data-preset="day.days:1,3,5">월·수·금</button>
+            <button type="button" data-preset="day.days:1,2,3,4,5,6">월~토</button>
+          </div>
+<p class="err" data-if="x.noDay"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>요일을 하나 이상 골라 주세요.</p>
+          <p class="hint">한 달 날수는 월~금은 22일, 월~토는 25일로 계산해요. 그 밖의 요일은 일주일 횟수 × 4.35를 반올림해요.</p>
+        </fieldset>
+        <fieldset>
+          <legend>평일 이용 시간</legend>
+          <div class="pick col" id="bandList"></div>
+        </fieldset>
+        <fieldset>
+          <legend>식사</legend>
+          <div class="pick">
+            <label class="chk"><input type="radio" name="day.meal" value="lunch" data-path="day.meal"><span class="bx"></span><span>점심만</span></label>
+            <label class="chk"><input type="radio" name="day.meal" value="both" data-path="day.meal"><span class="bx"></span><span>점심과 저녁</span></label>
+          </div>
+          <label class="fld"><span>점심·저녁 한 끼<span class="tagc">공단 지원 없음</span><small>공단 지원이 없어서 센터마다 달라요. 센터에 물어보고 고쳐 넣어 주세요</small></span><span class="inp"><input class="num" data-money data-max="50000" type="text" inputmode="numeric" autocomplete="off" data-path="day.mealPrice"><em>원</em></span></label>
+          <label class="fld"><span>간식비 (하루, 1회)<span class="tagc">공단 지원 없음</span><small>공단 지원이 없어서 센터마다 달라요. 직접 고칠 수 있어요</small></span><span class="inp"><input class="num" data-money data-max="50000" type="text" inputmode="numeric" autocomplete="off" data-path="day.snack"><em>원</em></span></label>
+        </fieldset>
+        <fieldset>
+          <legend>방문요양 함께 이용 (선택)</legend>
+          <p class="hint" data-if="x.cog">인지지원등급은 방문요양을 함께 이용할 수 없어요.</p>
+          <label class="chk" data-if="x.visitOk"><input type="checkbox" data-path="day.withVisit"><span class="bx"></span><span>방문요양도 함께 이용해요</span></label>
+          <div class="sub" data-if="x.dayVisitOn">
+            <p class="sublegend">일주일에 오시는 횟수</p>
+            <div class="pick" id="dvWeek">
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="1" data-path="day.visit.perWeek"><span class="bx"></span><span>주 1회</span></label>
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="2" data-path="day.visit.perWeek"><span class="bx"></span><span>주 2회</span></label>
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="3" data-path="day.visit.perWeek"><span class="bx"></span><span>주 3회</span></label>
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="4" data-path="day.visit.perWeek"><span class="bx"></span><span>주 4회</span></label>
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="5" data-path="day.visit.perWeek"><span class="bx"></span><span>주 5회</span></label>
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="6" data-path="day.visit.perWeek"><span class="bx"></span><span>주 6회</span></label>
+              <label class="chk"><input type="radio" name="day.visit.perWeek" value="7" data-path="day.visit.perWeek"><span class="bx"></span><span>주 7회</span></label>
+            </div>
+            <label class="fld"><span>1회 방문 시간</span><select class="sel" id="dvMin" data-path="day.visit.minutes"></select></label>
+            <p class="hint">주야간보호와 방문요양은 한 달 한도액을 함께 써요.</p>
+          </div>
+          <div class="remain" id="remainBox" hidden></div>
+        </fieldset>
+        <details class="more"><summary>자세히 입력하기</summary><div class="in">
+          <fieldset>
+            <legend>토요일 이용 시간</legend>
+            <div class="pick col" id="satList"></div>
+            <p class="hint">일요일·공휴일에 이용하면 하루 급여비용에 30%가 더 붙어요.</p>
+          </fieldset>
+          <label class="fld"><span>평일 공휴일에 가는 날<small>한 달 중 며칠? (가산 30%)</small></span><span class="inp"><input class="num sm" data-max="22" type="text" inputmode="numeric" autocomplete="off" data-path="day.hol"><em>일</em></span></label>
+          <label class="chk"><input type="checkbox" data-path="day.boost"><span class="bx"></span><span>월 15일 이상 이용 한도액 증액 적용</span></label>
+          <p class="hint">하루 8시간 이상, 월 15일 이상 이용하면 월 한도액이 1·2등급 10%, 3~5등급 20% 범위에서 늘어나요. 가족 요양보호사 방문요양을 받는 달 등은 제외되니 공단에 확인해 주세요.</p>
+          <label class="chk"><input type="checkbox" data-path="day.billing.on"><span class="bx"></span><span>청구서 확인 (실제 날수를 직접 입력)</span></label>
+          <div class="sub" data-if="day.billing.on">
+            <label class="fld"><span>평일 이용 날수</span><span class="inp"><input class="num sm" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="day.billing.wk"><em>일</em></span></label>
+            <label class="fld"><span>토요일 이용 날수</span><span class="inp"><input class="num sm" data-max="5" type="text" inputmode="numeric" autocomplete="off" data-path="day.billing.sat"><em>일</em></span></label>
+            <label class="fld"><span>일요일·공휴일 이용 날수</span><span class="inp"><input class="num sm" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="day.billing.sun"><em>일</em></span></label>
+            <div data-if="x.billVisit">
+              <label class="fld"><span>방문요양 월~토 횟수</span><span class="inp"><input class="num sm" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="day.visit.billing.wk"><em>회</em></span></label>
+              <label class="fld"><span>방문요양 일요일 횟수</span><span class="inp"><input class="num sm" data-max="5" type="text" inputmode="numeric" autocomplete="off" data-path="day.visit.billing.sun"><em>회</em></span></label>
+              <label class="fld"><span>방문요양 공휴일 횟수</span><span class="inp"><input class="num sm" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="day.visit.billing.hol"><em>회</em></span></label>
+            </div>
+          </div>
+        </div></details>
+      </div></section>
+
+      <!-- 방문요양 -->
+      <section class="pg" id="pn1" role="tabpanel" aria-labelledby="tab1" aria-hidden="true"><div class="pg-in">
+        <div class="kind"><span class="kb re">재가급여</span><p><b>방문요양</b> · 요양보호사가 집으로 와서 신체활동과 일상생활을 도와줘요. 월 한도액 안에서 이용해요.</p></div>
+        <p class="note">하루 한 번, 평일 오후 6시 이전 방문 기준이에요. 식비·간식비는 없어요. 인지지원등급은 이용할 수 없어요.</p>
+        <fieldset>
+          <legend>일주일에 오시는 횟수</legend>
+          <div class="pick" id="visitWeek">
+            <label class="chk"><input type="radio" name="visit.perWeek" value="1" data-path="visit.perWeek"><span class="bx"></span><span>주 1회</span></label>
+            <label class="chk"><input type="radio" name="visit.perWeek" value="2" data-path="visit.perWeek"><span class="bx"></span><span>주 2회</span></label>
+            <label class="chk"><input type="radio" name="visit.perWeek" value="3" data-path="visit.perWeek"><span class="bx"></span><span>주 3회</span></label>
+            <label class="chk"><input type="radio" name="visit.perWeek" value="4" data-path="visit.perWeek"><span class="bx"></span><span>주 4회</span></label>
+            <label class="chk"><input type="radio" name="visit.perWeek" value="5" data-path="visit.perWeek"><span class="bx"></span><span>주 5회</span></label>
+            <label class="chk"><input type="radio" name="visit.perWeek" value="6" data-path="visit.perWeek"><span class="bx"></span><span>주 6회</span></label>
+            <label class="chk"><input type="radio" name="visit.perWeek" value="7" data-path="visit.perWeek"><span class="bx"></span><span>주 7회</span></label>
+          </div>
+          <p class="hint">한 달 횟수는 주 횟수 × 4.35를 반올림해요. 주 6회부터는 토요일, 주 7회는 일요일 방문이 들어가고, 일요일은 30% 가산이에요.</p>
+        </fieldset>
+        <fieldset>
+          <legend>1회 방문 시간</legend>
+          <div class="pick col" id="minList"></div>
+          <p class="hint"><b>3시간 30분(210분)과 4시간(240분)은 1·2등급만</b> 이용할 수 있어요. 등급을 바꾸면 한도액 안에서 가장 긴 시간을 자동으로 골라 드려요. 흐린 항목은 한도를 넘거나 선택할 수 없는 시간이에요.</p>
+        </fieldset>
+        <details class="more"><summary>자세히 입력하기</summary><div class="in">
+          <label class="fld"><span>평일 공휴일에 오시는 날<small>한 달 중 며칠? (가산 50%)</small></span><span class="inp"><input class="num sm" data-max="22" type="text" inputmode="numeric" autocomplete="off" data-path="visit.hol"><em>일</em></span></label>
+          <p class="hint">일요일 방문은 <b>30%</b>, 공휴일(유급휴일·근로자의 날) 방문은 <b>50%</b> 가산이에요. 일요일과 공휴일이 겹치면 더 높은 50%만 붙고, 가산된 금액도 월 한도액에서 차감돼요.</p>
+          <label class="chk"><input type="checkbox" data-path="visit.billing.on"><span class="bx"></span><span>청구서 확인 (실제 횟수를 직접 입력)</span></label>
+          <div class="sub" data-if="visit.billing.on">
+            <label class="fld"><span>월~토 방문 횟수</span><span class="inp"><input class="num sm" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="visit.billing.wk"><em>회</em></span></label>
+            <label class="fld"><span>일요일 방문 횟수</span><span class="inp"><input class="num sm" data-max="5" type="text" inputmode="numeric" autocomplete="off" data-path="visit.billing.sun"><em>회</em></span></label>
+            <label class="fld"><span>공휴일 방문 횟수</span><span class="inp"><input class="num sm" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="visit.billing.hol"><em>회</em></span></label>
+          </div>
+        </div></details>
+      </div></section>
+
+      <!-- 요양원 -->
+      <section class="pg" id="pn2" role="tabpanel" aria-labelledby="tab2" aria-hidden="true"><div class="pg-in">
+        <div class="kind"><span class="kb fa">시설급여</span><p><b>요양원</b> · 시설에 입소해서 생활하며 돌봄을 받아요. 월 한도액 없이 하루 비용으로 계산하고, 본인부담은 재가급여보다 높아요.</p></div>
+        <p class="note" id="facNote"></p>
+        <fieldset>
+          <legend>방</legend>
+          <div class="pick">
+            <label class="chk"><input type="radio" name="fac.room" value="multi" data-path="fac.room"><span class="bx"></span><span>다인실</span></label>
+            <label class="chk"><input type="radio" name="fac.room" value="double" data-path="fac.room"><span class="bx"></span><span>2인실</span></label>
+            <label class="chk"><input type="radio" name="fac.room" value="single" data-path="fac.room"><span class="bx"></span><span>1인실</span></label>
+          </div>
+          <label class="fld" data-if="x.roomExtra"><span>1·2인실 하루 추가 금액<span class="tagc">공단 지원 없음</span><small>공단 지원이 없어서 시설마다 달라요. 시설에 물어보고 넣어 주세요</small></span><span class="inp"><input class="num" data-money data-max="500000" type="text" inputmode="numeric" autocomplete="off" data-path="fac.roomExtra"><em>원</em></span></label>
+        </fieldset>
+        <fieldset>
+          <legend>식사</legend>
+          <label class="fld"><span>한 끼 식재료비<span class="tagc">공단 지원 없음</span><small>공단 지원이 없어서 시설마다 달라요. 하루 3끼로 계산해요</small></span><span class="inp"><input class="num" data-money data-max="50000" type="text" inputmode="numeric" autocomplete="off" data-path="fac.meal"><em>원</em></span></label>
+        </fieldset>
+        <details class="more"><summary>등급별 요양원 비용 보기</summary><div class="in">
+          <div class="tbl-wrap"><table class="sumtbl" id="facTbl"></table></div>
+          <p class="hint">요양원 비용은 등급으로 정해져요. 등급이 한 단계 달라도 한 달 3만~4만 원 차이라서, 비용만 보면 식비 같은 비급여가 더 크게 움직여요.</p>
+          <p class="hint"><b>상담할 때는</b> 식재료비·간식비·1·2인실 추가 금액을 <b>월 금액으로 적어 달라고</b> 요청하세요. 감경 대상이어도 이 비급여 항목에는 감경이 적용되지 않아요.</p>
+        </div></details>
+        <details class="more"><summary>자세히 입력하기</summary><div class="in">
+          <fieldset>
+            <legend>시설 종류</legend>
+            <div class="pick col">
+              <label class="chk"><input type="radio" name="fac.type" value="home" data-path="fac.type"><span class="bx"></span><span>요양원 <small class="hint">(정원 10명 이상)</small></span></label>
+              <label class="chk"><input type="radio" name="fac.type" value="group" data-path="fac.type"><span class="bx"></span><span>노인요양공동생활가정 <small class="hint">(정원 5~9명)</small></span></label>
+            </div>
+          </fieldset>
+          <p class="hint">요양원 1일 비용은 "요양보호사가 입소자 2.1명당 1명 이상인 시설" 기준(4등급 81,540원)이에요. 요양보호사가 그보다 적은 시설은 단가가 조금 낮아요(4등급 77,540원). 시설에 확인해 주세요.</p>
+          <label class="fld"><span>간식비 (하루)<span class="tagc">공단 지원 없음</span><small>공단 지원이 없어서 시설마다 달라요</small></span><span class="inp"><input class="num" data-money data-max="50000" type="text" inputmode="numeric" autocomplete="off" data-path="fac.snack"><em>원</em></span></label>
+          <label class="fld"><span>이·미용비 (한 달)<span class="tagc">공단 지원 없음</span><small>공단 지원이 없어서 시설마다 달라요</small></span><span class="inp"><input class="num" data-money data-max="500000" type="text" inputmode="numeric" autocomplete="off" data-path="fac.beauty"><em>원</em></span></label>
+          <label class="fld"><span>이번 달 날수<small>28~31일</small></span><span class="inp"><input class="num sm" data-min="28" data-max="31" type="text" inputmode="numeric" autocomplete="off" data-path="fac.days"><em>일</em></span></label>
+        </div></details>
+      </div></section>
+
+    </div>
+  </div>
+</section>
+
+<!-- 5. 계산 내역 -->
+<section class="sec" id="ledger" aria-labelledby="h-ledger">
+  <h2 id="h-ledger">계산 내역</h2>
+  <p class="cap">가계부에 적듯이 한 줄씩 풀어 봤어요.</p>
+  <div class="ledger" id="ledgerBox"></div>
+  <p class="warn" id="warnBox" hidden></p>
+</section>
+
+<!-- 6. 세 가지 비교 -->
+<section class="sec" aria-labelledby="h-cmp">
+  <h2 id="h-cmp">세 가지 비교</h2>
+  <p class="cap" id="cmpCap">같은 등급·감경으로 비교했어요. 줄을 누르면 그 탭으로 가요.</p>
+  <div id="cmpList">
+    <button type="button" class="cmp-row" data-mode="0"><span class="nm">주야간보호<small></small></span><b></b><i class="gauge"></i></button>
+    <button type="button" class="cmp-row" data-mode="1"><span class="nm">방문요양<small></small></span><b></b><i class="gauge"></i></button>
+    <button type="button" class="cmp-row" data-mode="2"><span class="nm">요양원<small></small></span><b></b><i class="gauge"></i></button>
+  </div>
+  <div class="mealcmp" id="mealCmp" hidden></div>
+</section>
+
+<!-- 비용계산: 한눈에 보는 계산 항목 -->
+<section class="sec" id="summary" aria-labelledby="h-sum">
+  <h2 id="h-sum">한눈에 보는 계산 항목</h2>
+  <p class="cap">주야간보호·방문요양·요양원이 어떻게 다른지 한 장으로 비교했어요. 숫자는 위에서 고른 등급과 감경 기준이에요.</p>
+  <div class="tbl-wrap"><table class="sumtbl" id="sumTbl"></table></div>
+  <p class="hint">노란 줄은 <b>공단 지원이 없는 항목</b>이라 센터·시설마다 달라요. 요양원은 월 한도액 없이 하루 비용으로 계산하고, 가산은 일요일·공휴일에 이용할 때만 붙어요. 주야간보호는 월 15일(하루 8시간 이상) 이상 이용하면 한도액이 늘어나요.</p>
+</section>
+
+<!-- 비용계산: 결과 보내기 -->
+<section class="sec" aria-label="결과 보내기">
+  <div class="actions">
+    <button type="button" class="btn kakao" id="kakaoBtn"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg>카톡으로 결과 보내기 (글 복사)</button>
+    <button type="button" class="btn" id="resetBtn"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg>처음부터 다시</button>
+  </div>
+  <div class="copybox" id="copyBox" hidden>
+    <p class="hint">복사가 안 됐어요. 아래 글을 길게 눌러 복사해 주세요.</p>
+    <textarea id="copyTa" readonly></textarea>
+  </div>
+</section>
+</div>
+
+<!-- ========== 내정보 ========== -->
+<div class="view" id="view-me" data-view="me">
+<header class="vbar">
+  <h1 class="vbar-t" tabindex="-1">내 정보</h1>
+  <p>지금 고른 조건을 한눈에 보고, 설정을 바꿀 수 있어요.</p>
+  <div class="dog-say"><svg class="dog" viewBox="0 0 120 124" role="img" aria-label="강아지 캐릭터 보리"><use href="#dog-face"/></svg><p class="bubble" data-dog="me">지금 고른 조건이에요.</p></div>
+</header>
+
+<section class="sec" aria-labelledby="h-me">
+  <h2 id="h-me">내가 고른 조건</h2>
+  <dl class="me-list">
+    <div><dt>장기요양 등급</dt><dd id="meGrade"></dd></div>
+    <div><dt>본인부담 감경</dt><dd id="meReduce"></dd></div>
+    <div><dt>돌봄 장소</dt><dd id="mePlace"></dd></div>
+    <div class="me-wide"><dt>이용 방법</dt><dd id="meDesc"></dd></div>
+    <div class="me-total"><dt>이번 달 예상 금액</dt><dd id="meTotal"></dd></div>
+  </dl>
+  <button type="button" class="btn primary" data-go="calc"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>조건 고치러 가기</button>
+</section>
+
+<section class="sec" id="y2027" aria-labelledby="h-2027">
+  <h2 id="h-2027">2027년 의결 수가 미리보기</h2>
+  <p class="cap">2026년 10월 장기요양위원회에서 의결된 2027년 수가예요. 아직 <b>보건복지부 고시 전</b>이라 달라질 수 있어요. 이 계산기의 기본 계산은 2026년 고시 기준이에요.</p>
+  <div class="p27-cmp" id="p27Cmp"></div>
+  <div class="tbl-wrap"><table class="sumtbl p27" id="p27Tbl"></table></div>
+  <details class="more"><summary>그 밖의 2027년 의결 수가</summary><div class="in" id="p27More"></div></details>
+</section>
+
+<section class="sec" aria-labelledby="h-set">
+  <h2 id="h-set">설정</h2>
+  <div class="set-row">
+    <div class="set-t"><b>처음부터 다시</b><small>고른 조건을 모두 지우고 기본값으로 돌아가요.</small></div>
+    <button type="button" class="btn sm" id="resetBtn2"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg>다시 시작</button>
+  </div>
+</section>
+
+<footer class="foot">
+  <h3>꼭 알아 두세요</h3>
+  <ul class="foot-list">
+    <li>실제 금액은 기관의 청구와 가산, 감경 여부에 따라 달라질 수 있어요. <b>국민건강보험공단(1577-1000)이나 이용 기관에 꼭 확인</b>해 주세요.</li>
+    <li><b>식비·간식비·1·2인실 추가 금액·이미용비</b>처럼 공단 지원이 없는 항목은 <b>센터마다 달라요.</b> 계산기의 기본 금액은 예시예요.</li>
+  </ul>
+
+  <h3>기준과 공식 자료</h3>
+  <p>국민건강보험공단 노인장기요양보험 2026.1.1. 고시 기준이에요. (월 한도액·급여비용·본인부담금 감경)</p>
+  <div class="foot-links">
+    <a href="https://www.longtermcare.or.kr/npbs/indexr.jsp" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg>노인장기요양보험 공식 홈페이지</a>
+    <a href="https://www.longtermcare.or.kr/npbs/e/b/502/npeb502m01.web?menuId=npe0000002742" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg>월 한도액 및 급여비용</a>
+    <a href="https://www.longtermcare.or.kr/npbs/e/b/503/npeb503m01.web?menuId=npe0000002743" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg>본인부담금 감경</a>
+  </div>
+  <p class="foot-brand"><img class="foot-logo" src="logo.png" alt="" width="72" height="72"><span class="brand-ko">마케팅지니</span><span class="brand-en">MARKETING JINI</span></p>
+</footer>
+</div>
+</main>
+
+<!-- 하단 메뉴 -->
+<nav class="bnav" aria-label="하단 메뉴">
+  <a href="#home" data-go="home" class="on" aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg><span>홈</span></a>
+  <a href="#calc" data-go="calc"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg><span>비용계산</span></a>
+  <a href="#me" data-go="me"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg><span>내정보</span></a>
+</nav>
+
+<!-- 8. 아래 고정 합계 바 (비용계산 화면에서만) -->
+<div class="sticky" id="stickyBar" aria-hidden="true">
+  <div><small id="stickySm">한 달 예상 금액</small><b id="stickyAmt">0원</b></div>
+  <button type="button" class="btn kakao" id="stickyKakao" tabindex="-1"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg>카톡 보내기</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 질문 하나씩 (전체 화면) -->
+<div class="wz" id="wz" role="dialog" aria-modal="true" aria-labelledby="wzTitle" hidden>
+  <div class="wz-in-wrap">
+    <div class="wz-top">
+      <div class="wz-prog" aria-hidden="true"><i id="wzProg"></i></div>
+      <span class="wz-count" id="wzCount">1 / 6</span>
+      <button type="button" class="wz-quit" id="wzQuit">그만하기</button>
+    </div>
+    <div class="wz-dog"><svg class="dog" viewBox="0 0 120 124" aria-hidden="true"><use href="#dog-face"/></svg><p class="bubble">천천히 골라도 괜찮아요. 못 고르면 제가 기본값으로 넘겨 드릴게요!</p></div>
+    <div class="wz-body" id="wzBody">
+      <div class="wz-q" id="wzQ">
+        <p class="wz-kicker" id="wzKicker"></p>
+        <h2 class="wz-title" id="wzTitle" tabindex="-1"></h2>
+        <div class="wz-opts" id="wzOpts"></div>
+      </div>
+    </div>
+    <div class="wz-bot" id="wzBot">
+      <div class="wz-timer" id="wzTimerBox"><i id="wzTimer"></i></div>
+      <p class="wz-sec" id="wzSec"></p>
+      <button type="button" class="wz-skip" id="wzSkip">기본값으로 바로 넘기기</button>
+    </div>
+  </div>
+</div>
+
+<noscript><p class="noscript-msg">이 계산기는 자바스크립트가 켜져 있어야 움직여요.</p></noscript>
+
+<script src="app.js"></script>
+<script src="dog.js"></script>
+</body>
+</html>
