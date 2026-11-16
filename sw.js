@@ -1,6 +1,6 @@
 /* 장기요양 계산기 — 오프라인용 서비스 워커
    파일을 고쳐서 다시 올릴 때는 아래 VERSION 숫자를 하나 올려 주세요. */
-const VERSION = 'v62';
+const VERSION = 'v63';
 const CACHE = 'ltc-calc-' + VERSION;
 const FONT_CACHE = 'ltc-fonts-v1';
 const ASSETS = [
