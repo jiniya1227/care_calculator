@@ -167,7 +167,7 @@ function calcDay(S) {
   rows.push({ label: '한도 초과분', sub: '한도를 넘은 부분은 전액 본인', amt: fin.excess, cls: fin.excess ? 'over' : 'zero' });
   rows.push({ k: 'head', label: '공단 지원이 없는 항목', sub: '센터마다 달라요 · 센터에 확인해서 직접 넣어 주세요' });
   rows.push({ label: d.meal === 'both' ? '점심·저녁 ' + won(num(d.mealPrice)) + ' × 2끼 × ' + days + '일' : '점심 ' + won(num(d.mealPrice)) + ' × ' + days + '일', amt: mealCost, cls: mealCost ? '' : 'zero' });
-  rows.push({ label: '간식비 ' + won(num(d.snack)) + ' × ' + days + '일', sub: '하루 1회', amt: snackCost, cls: snackCost ? '' : 'zero' });
+  rows.push({ label: '간식비 ' + won(num(d.snack)) + ' × ' + days + '일', amt: snackCost, cls: snackCost ? '' : 'zero' });
   var total = fin.burden + fin.excess + nonCov;
   rows.push({ k: 'total', label: '이번 달 내실 금액', amt: total });
   var desc = '주야간보호센터 ' + (d.days.length ? labelDays(d.days) : '(요일 선택 전)') + ' ' + DATA.bands[d.band];

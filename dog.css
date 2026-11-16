@@ -78,8 +78,8 @@
 .eye { transform-box: fill-box; transform-origin: 50% 50%; animation: dog-blink 4.2s infinite; }
 @keyframes dog-blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.08); } }
 .ear { animation: ear-flap 2.6s ease-in-out infinite; }
-.ear-l { transform-origin: 22px 36px; }
-.ear-r { transform-origin: 98px 36px; animation-delay: .35s; }
+.ear-l { transform-origin: 24px 50px; }
+.ear-r { transform-origin: 96px 50px; animation-delay: .35s; }
 @keyframes ear-flap { 0%, 100% { transform: rotate(0); } 45% { transform: rotate(9deg); } 70% { transform: rotate(-6deg); } }
 .ear-r { animation-name: ear-flap-r; }
 @keyframes ear-flap-r { 0%, 100% { transform: rotate(0); } 45% { transform: rotate(-9deg); } 70% { transform: rotate(6deg); } }
