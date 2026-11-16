@@ -744,7 +744,7 @@ function renderSummary() {
   var names = ['주야간보호', '방문요양', '요양원'];
   var rows = [
     ['본인부담률', [rate.home + '%', rate.home + '%', rate.fac + '%']],
-    ['월 한도액', [won(g.limit), cog ? '이용 불가' : won(g.limit), '없음']],
+    ['월 한도액', [fmt(g.limit), cog ? '이용 불가' : fmt(g.limit), '없음']],
     ['한도액 증액', [DATA.limitBoost.pct[g.key] ? '15일↑ +' + DATA.limitBoost.pct[g.key] + '%' : '해당 없음', '해당 없음', '해당 없음']],
     ['한도 초과분', ['전액 본인', '전액 본인', '해당 없음']],
     ['일·공휴일 가산', ['+' + S.dayHoliday + '%', '+' + S.visitSun + '~' + S.visitHoliday + '%', '없음']],
@@ -753,7 +753,7 @@ function renderSummary() {
     ['간식비', ['본인 부담', '없음', '본인 부담']],
     ['1·2인실 추가', ['없음', '없음', '방에 따라']],
     ['이·미용비', ['없음', '없음', '본인 부담']],
-    { total: ['이번 달 예상', rs.map(function (r) { return r.unavailable ? '이용 불가' : won(r.total); })] }
+    { total: ['이번 달 예상', rs.map(function (r) { return r.unavailable ? '이용 불가' : fmt(r.total); })] }
   ];
   var cur = state.mode;
   var html = '<thead><tr class="kinds"><td></td><th scope="colgroup" colspan="2" class="kd0">재가급여 · 집에서 이용</th><th scope="col" class="kd1">시설급여</th></tr>' +
@@ -1343,7 +1343,7 @@ function init() {
   $('#kakaoBtn').addEventListener('click', sendKakao);
   $('#stickyKakao').addEventListener('click', sendKakao);
   $('#resetBtn').addEventListener('click', resetAll);
-  $('#resetBtn2').addEventListener('click', resetAll);
+  var rb2 = $('#resetBtn2'); if (rb2) rb2.addEventListener('click', resetAll);
   update({ anim: false });
   redrawCircle();
   initRouter();

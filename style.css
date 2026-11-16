@@ -1211,9 +1211,3 @@ body[data-view="calc"] .toast { bottom: calc(var(--nav-h) + 96px + env(safe-area
 #installBtn.btn.soft:hover { background: #ffe03d; box-shadow: 0 4px 0 #8a6a00; }
 #installBtn.btn.soft:active { box-shadow: 0 0 0 #8a6a00; }
 #installBtn.btn.soft:focus-visible { outline-color: #12203a; }
-
-/* 내정보 '다시 시작' 버튼: 노란색 */
-#resetBtn2.btn { background: #facc15; border-color: #8a6a00; color: #12203a; box-shadow: 0 3px 0 #8a6a00; }
-#resetBtn2.btn:hover { background: #ffe03d; box-shadow: 0 4px 0 #8a6a00; }
-#resetBtn2.btn:active { box-shadow: 0 0 0 #8a6a00; }
-#resetBtn2.btn:focus-visible { outline-color: #12203a; }
